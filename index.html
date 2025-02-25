@@ -49,7 +49,7 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: 10%; /* 🔴 初期位置を設定 */
+        bottom: 45%; /* 🔴 初期位置を設定 */
     }
 
     /* 🔴🔴🔴🔴上付き下付きのサイズの調整🔴🔴🔴 */
@@ -78,7 +78,7 @@
 
     #inputContainer {
       position: absolute;
-      top: 45%;
+      top: 55%;
       right: 45%;
       display: flex;
       flex-direction: column;
@@ -133,7 +133,7 @@
     margin-right: 40px; /* 🔴 左に寄せるために、余白を増やす */
 }
 
-/* 🔴 上付き下付きボタンのスタイル */
+/* 🔴 ボタンのスタイル */
 #superscriptButton, #subscriptButton {
     padding: 8px 12px;
     font-size: 12px;
@@ -189,7 +189,7 @@
     #totalScoreDisplay3 {
       position: absolute;
       top: 20%;
-      left: 34%;
+      left: 35%;
       font-size: 40px;      font-weight: bold;      color: blue;
     }
 
@@ -200,7 +200,7 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 55%; /* 🔴 初期位置を設定←ココを10にすると全画面 */
+      bottom: 45%; /* 🔴 初期位置を設定←ココを10にすると全画面 */
     }
     .formatted-answer sup {font-size: 36px;}
 
@@ -264,7 +264,7 @@
   left: 46%;
   position: relative; /* または absolute */
   z-index: 1001;
-  pointer-events: auto; /* 🔴 クリックを許可 */
+  pointer-events: auto; /* クリックを許可 */
 }
 
 /* 🔴🔴🔴🔴 次のレベルボタン🔴🔴🔴 */
@@ -347,7 +347,7 @@
               <button id="restartButton">やりなおし</button>
               <button id="nextlevelButton">次のレベルへ</button>
      
-              <!-- 🔴 間違えた問題の一覧を表示するエリア -->
+              <!-- 間違えた問題の一覧を表示するエリア -->
           <div id="wrongAnswersList" style="display: none;">
             <h2>間違えた問題</h2>
             <ul id="wrongAnswersContainer"></ul>      
@@ -441,8 +441,8 @@ let quizLevels = {
     const totalFallSteps = 200;//落下ステップ数
     const fallDuration = 20000;//落下時間
     const fallStepDuration = fallDuration / totalFallSteps;//落下ステップ時間
-    const maxFallHeight = 31; // 🔴 最大落下範囲を 31% に制限(発射文字と被らせないため)
-    const maxRiseHeight = -50; // 🔴 最大上昇範囲を -50% に制限（上方向に動く文字が突き抜ける）
+    const maxFallHeight = 41; // 🔴 最大落下範囲を 31% に制限(発射文字と被らせないため)
+    const maxRiseHeight = -60; // 🔴 最大上昇範囲を -50% に制限（上方向に動く文字が突き抜ける）
     //🔴formattedAnswerの位置はCSSで
     //🔴risingText.style.bottom = "55%"; で発射文字の下端を設定
     let isFalling = true;//落下中に設定
@@ -595,7 +595,7 @@ function showScreen(id) {//表示したい画面のidを渡す
 function mojiInput(currentQuestionIndex){
         document.getElementById("inputContainer").style.display = "flex";//入力欄を表示
         risingText.innerHTML = "";            // 上昇文字をリセット
-        risingText.style.bottom = "55%";      // 位置を画面下端にリセット
+        risingText.style.bottom = "45%";      // 🔴位置を画面下端にリセット
         risingText.style.display = 'block';   // 上昇文字を表示
         formattedAnswer.innerHTML  = "";      // 上昇させない解答をリセット
         inputTextInput.value = "";            // 入力欄をリセット
@@ -805,7 +805,7 @@ inputTextInput.addEventListener('input', updateRisingText);
         }
       }
       risingText.style.display = 'block';//  上昇文字を表示
-      risingText.style.bottom = "55%"; // 🔴必要に応じて調整 ←ココを10にすると全画面
+      risingText.style.bottom = "45%"; // 🔴必要に応じて調整 ←ココを10にすると全画面
       formattedAnswer.innerHTML  = formattedText|| '<sup></sup>';
       risingText.innerHTML = formattedText || '<sup></sup>';
       // デバッグ用　console.log("ココを通りました： ",risingText.innerHTML); 
@@ -901,6 +901,15 @@ function endGame() {
       
           document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${totalScore}`;
             showScreen('scoreScreen');
+        }
+//ニックネーム入力
+        function saveScore() {
+            const nickname = document.getElementById('nickname').value;
+            if (nickname.trim() === '') {
+                alert('ニックネームを入力し，Total Scoreをスクショしてください！');
+                return;
+            }
+            alert(`スコアが保存されました！\nニックネーム: ${nickname}\nスコア: ${score}`);
         }
 
         function endLevel() {
