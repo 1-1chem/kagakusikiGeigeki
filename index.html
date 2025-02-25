@@ -412,24 +412,109 @@
 
         //クイズデータ
 let quizLevels = {
+let quizLevels = {
   1: [
-      { name: "水素", formula: "H" },
-     
+        { name: "水素", formula: "H" },
+        { name: "ヘリウム", formula: "He" },
+        { name: "リチウム", formula: "Li" },
+        { name: "ベリリウム", formula: "Be" },
+        { name: "ホウ素", formula: "B" },
+        { name: "炭素", formula: "C" },
+        { name: "窒素", formula: "N" },
+        { name: "酸素", formula: "O" },
+        { name: "フッ素", formula: "F" },
+        { name: "ネオン", formula: "Ne" },
+        { name: "ナトリウム", formula: "Na" },
+        { name: "マグネシウム", formula: "Mg" },
+        { name: "アルミニウム", formula: "Al" },
+        { name: "ケイ素", formula: "Si" },
+        { name: "リン", formula: "P" },
+        { name: "硫黄", formula: "S" },
+        { name: "塩素", formula: "Cl" },
+        { name: "アルゴン", formula: "Ar" },
+        { name: "カリウム", formula: "K" },
+        { name: "カルシウム", formula: "Ca" },
     ],
   2: [
-      { name: "ホウ素", formula: "B" },
+        { name: "スカンジウム", formula: "Sc" },
+        { name: "チタン", formula: "Ti" },
+        { name: "バナジウム", formula: "V" },
+        { name: "クロム", formula: "Cr" },
+        { name: "マンガン", formula: "Mn" },
+        { name: "鉄", formula: "Fe" },
+        { name: "コバルト", formula: "Co" },
+        { name: "ニッケル", formula: "Ni" },
+        { name: "銅", formula: "Cu" },
+        { name: "亜鉛", formula: "Zn" },
+        { name: "ガリウム", formula: "Ga" },
+        { name: "ゲルマニウム", formula: "Ge" },
+        { name: "ヒ素", formula: "As" },
+        { name: "セレン", formula: "Se" },
+        { name: "臭素", formula: "Br" },
+        { name: "クリプトン", formula: "Kr" },
   ],
   3: [
-      { name: "炭素", formula: "C" },
+        { name: "ストロンチウム", formula: "Sr" },
+        { name: "パラジウム", formula: "Pd" },
+        { name: "銀", formula: "Ag" },
+        { name: "カドミウム", formula: "Cd" },
+        { name: "スズ", formula: "Sn" },
+        { name: "アンチモン", formula: "Sb" },
+        { name: "ヨウ素", formula: "I" },
+        { name: "キセノン", formula: "Xe" },
+        { name: "バリウム", formula: "Ba" },
+        { name: "タンタル", formula: "Ta" },
+        { name: "タングステン", formula: "W" },
+        { name: "白金", formula: "Pt" },
+        { name: "金", formula: "Au" },
+        { name: "水銀", formula: "Hg" },
+        { name: "鉛", formula: "Pb" },
+        { name: "ウラン", formula: "U" },
   ],
   4: [
-      { name: "重水素", formula: "D" },
+        { name: "水素イオン", formula: "H+^" },
+        { name: "リチウムイオン", formula: "Li+^" },
+        { name: "酸化物イオン", formula: "O2^-^" },
+        { name: "フッ化物イオン", formula: "F-^" },
+        { name: "ナトリウムイオン", formula: "Na+^" },
+        { name: "マグネシウムイオン", formula: "Mg2^+^" },
+        { name: "アルミニウムイオン", formula: "Al3^+^" },
+        { name: "硫化物イオン", formula: "S2^-^" },
+        { name: "塩化物イオン", formula: "Cl-^" },
+        { name: "カリウムイオン", formula: "K+^" },
+        { name: "カルシウムイオン", formula: "Ca2^+^" },
   ],
   5: [
-      { name: "フッ素", formula: "F" },
+        { name: "クロム(Ⅲ)イオン", formula: "Cr3^+^" },
+        { name: "マンガン(Ⅱ)イオン", formula: "Mn2^+^" },
+        { name: "鉄(Ⅱ)イオン", formula: "Fe2^+^" },
+        { name: "鉄(Ⅲ)イオン", formula: "Fe3^+^" },
+        { name: "ニッケル(Ⅱ)イオン", formula: "Ni2^+^" },
+        { name: "銅(Ⅰ)イオン", formula: "Cu+^" },
+        { name: "銅(Ⅱ)イオン", formula: "Cu2^+^" },
+        { name: "亜鉛イオン", formula: "Zn2^+^" },
+        { name: "臭化物イオン", formula: "Br-^" },
+        { name: "ストロンチウムイオン", formula: "Sr2^+^" },
+        { name: "銀イオン", formula: "Ag+^" },
+        { name: "ヨウ化物イオン", formula: "I-^" },
+        { name: "スズ(Ⅱ)イオン", formula: "Sn2^+^" },
+        { name: "スズ(Ⅳ)イオン", formula: "Sn4^+^" },
+        { name: "バリウムイオン", formula: "Ba2^+^" },
+        { name: "水銀(Ⅱ)イオン", formula: "Hg2^+^" },
+        { name: "鉛(Ⅱ)イオン", formula: "Pb2^+^" },
   ],
   6: [
-      { name: "酸素", formula: "O" },
+        { name: "水酸化物イオン", formula: "OH-^" },
+        { name: "アンモニウムイオン", formula: "NH4_+^" },
+        { name: "硝酸イオン", formula: "NO3_-^" },
+        { name: "炭酸イオン", formula: "CO3_2^-^" },
+        { name: "炭酸水素イオン", formula: "HCO3_-^" },
+        { name: "硫酸イオン", formula: "SO4_2^-^" },
+        { name: "リン酸イオン", formula: "PO4_3^-^" },
+        { name: "過マンガン酸イオン", formula: "MnO4_-^" },
+        { name: "クロム酸イオン", formula: "CrO4_2^-^" },
+        { name: "二クロム酸イオン", formula: "Cr2_O7_2^-^" },
+        { name: "酢酸イオン", formula: "CH3_COO-^" },
     ]
   };
 
@@ -886,16 +971,16 @@ function endGame() {
           
         let finalComment = "";
 
-            if (totalScore >= 0 && totalScore <= 20) {
+            if (totalScore >= 0 && totalScore <= 1000) {
               finalComment = "へなちょこ";
-            } else if (totalScore >= 21 && totalScore <= 40) {
+            } else if (totalScore >= 1001 && totalScore <= 1200) {
               finalComment = "修行が足りん";
-            } else if (totalScore >= 41 && totalScore <= 60) {
-              finalComment = "ちょこざいな";
-            } else if (totalScore >= 61 && totalScore <= 80) {
-              finalComment = "すこしはできるな";
-            } else if (totalScore >= 81 && totalScore <= 99) {
-              finalComment = "優秀";
+            } else if (totalScore >= 1201 && totalScore <= 1300) {
+              finalComment = "ちょこざいなヤツ";
+            } else if (totalScore >= 1301 && totalScore <= 1500) {
+              finalComment = "できる人です";
+            } else if (totalScore >= 1501 && totalScore <= 2000) {
+              finalComment = "とても優秀です";
             } else {
               finalComment = "範囲外の値です";
             }
