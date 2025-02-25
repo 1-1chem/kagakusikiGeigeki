@@ -59,7 +59,7 @@
     .fragment {
         position: absolute;
         font-size: 24px;
-        font-weight: bold;　color: #333;
+        font-weight: bold; color: #333;
         opacity: 0;
         animation: scatter 1s forwards;
     }
@@ -87,7 +87,7 @@
     }
     
 /* 🔴🔴🔴🔴 入力欄🔴🔴🔴 */
-    #inputText {
+#inputText {
       right: 45%;
       width: 120px; /*  最小幅を設定 */
       font-size: 14px; /* 文字サイズを適切に */
@@ -140,6 +140,7 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    display: none;
 }
 
 /* 🔴 上付き，下付きボタンの色 */
@@ -151,8 +152,6 @@
     background-color: #4CAF50; /* 緑色 */
     color: white;
 }
-
-    
 
 /* 🔴🔴🔴🔴 スコア表示🔴🔴🔴 */
     #scoreDisplay {
@@ -180,6 +179,18 @@
       top: 1%;
       left: 1%;
       font-size: 20px;      font-weight: bold;      color: blue;
+    }
+    #totalScoreDisplay2 {
+      position: absolute;
+      top: 1%;
+      left: 1%;
+      font-size: 20px;      font-weight: bold;      color: blue;
+    }
+    #totalScoreDisplay3 {
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      font-size: 40px;      font-weight: bold;      color: blue;
     }
 
 /* 🔴🔴🔴🔴 フォーマット後の文字表示🔴🔴🔴 */
@@ -250,7 +261,7 @@
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
-  margin: auto;
+  left: 50%;
   position: relative; /* または absolute */
   z-index: 1001;
   pointer-events: auto; /* 🔴 クリックを許可 */
@@ -302,6 +313,7 @@
 
     <!-- レベル説明画面（複数スライド） -->
     <div id="levelScreen" class="screen">
+      <div id="totalScoreDisplay">Total Score: 0</div>
         <h1 id="levelTitle">レベル 1</h1>
         <p id="levelDescription"></p> <!-- ここに改行付きの説明が表示される -->
     
@@ -311,7 +323,7 @@
     <!-- ゲーム画面 -->
     <div id="gameScreen" class="screen">
         <div class="container">
-            <div id="totalScoreDisplay">Total Score: 0</div>
+            <div id="totalScoreDisplay2">Total Score: 0</div>
             <div id="scoreDisplay">スコア: 0</div>
         
             <div class="text text-fall" id="fallingText"></div>
@@ -323,8 +335,6 @@
               <div id="lifeLabel">Life</div>
               <div id="lifeDisplay">♥♥♥</div>
             </div>
-            <div id="finalScore"></div> <!--  最終スコアを表示するエリア <button onclick="endLevel()">クリア</button>-->
-            
             <div id="inputContainer">
                 <input type="text" id="inputText" placeholder="化学式は？">
                 <div id="sideButtonContainer">
@@ -346,31 +356,24 @@
     </div>
         <!-- ゲーム終了画面 -->
     <div id="endScreen" class="screen">
-        <h1>Complete the game.</h1>
-        <p>You are amazing！</p>
-        <button onclick="showScoreScreen()">ニックネーム入力へ</button>
+        <h1>Completed the game.</h1>
+        <h2>You are amazing！</h2>
+        <div id="totalScoreDisplay3">Total Score: 0</div>
     </div>
 
     <!-- ニックネーム入力画面 -->
     <div id="scoreScreen" class="screen">
         <h1>ニックネームの入力</h1>
-        <p>最終スコア: <span id="finalScore">0</span></p>
+        <div id="totalScoreDisplay">Total Score: 0</div>
         <input type="text" id="nickname" placeholder="ニックネームを入力">
         <button onclick="saveScore()">スコアを保存</button>
     </div>
-
         
-    </div>
-    
-      </div>
-    
       <audio id="fireSound" src="fire-sound.mp3" preload="auto"></audio>
       <audio id="explosionSound" src="explosion-sound.mp3" preload="auto"></audio>
       <audio id="hazureSound" src="hazure.wav" preload="auto"></audio>
       <audio id="timeOverSound" src="bubu-.mp3" preload="auto"></audio>
-    
-
-    
+       
     <script>
         const maxLevel = 6;
         let currentDescriptionIndex = 0;
@@ -401,33 +404,22 @@
 let quizLevels = {
   1: [
       { name: "水素", formula: "H" },
-      { name: "ヘリウム", formula: "He" },
-      { name: "リチウム", formula: "Li" },
+     
     ],
   2: [
-      { name: "スカンジウム", formula: "Sc" },
-      { name: "チタン", formula: "Ti" },
-      { name: "バナジウム", formula: "V" },
+      { name: "ホウ素", formula: "B" },
   ],
   3: [
-      { name: "ストロンチウム", formula: "Sr" },
-      { name: "パラジウム", formula: "Pd" },
-      { name: "銀", formula: "Ag" },
+      { name: "炭素", formula: "C" },
   ],
   4: [
-      { name: "水素イオン", formula: "H+^" },
-      { name: "リチウムイオン", formula: "Li+^" },
-      { name: "酸化物イオン", formula: "O2^-^" },
+      { name: "重水素", formula: "D" },
   ],
   5: [
-      { name: "スズ(Ⅱ)イオン", formula: "Sn2^+^" },
-      { name: "スズ(Ⅳ)イオン", formula: "Sn4^+^" },
-      { name: "バリウムイオン", formula: "Ba2^+^" },
+      { name: "フッ素", formula: "F" },
   ],
   6: [
-      { name: "水酸化物イオン", formula: "OH-^" },
-      { name: "アンモニウムイオン", formula: "NH4_+^" },
-      { name: "硝酸イオン", formula: "NO3_-^" },
+      { name: "酸素", formula: "O" },
     ]
   };
 
@@ -456,6 +448,7 @@ let quizLevels = {
     let isFalling = true;//落下中に設定
     let fallInterval;//落下間隔
     let fallStep = 0;//落下ステップ
+    let fallTimeout;//setTimeout ID を保持
     let wrongAnswers = [];//間違えた問題←間違えた問題を再実行用
     let yarinaosiKaisu = 1;
     const container = document.querySelector('.container');//Document の querySelector() メソッドは、
@@ -466,12 +459,11 @@ let quizLevels = {
     let risingAnimation;//上昇アニメーション
     fireButton.style.display = "none"; //発射ボタンを非表示
     let score = 0; // スコアの初期化
+    let totalScore = 0; //  合計得点
     let timeLeft = 5; // 制限時間（秒）
     let timer; // タイマー変数
     let timeOutCount = 0; // 時間切れの回数をカウント
     let maxLives = 3; //  最大ライフ数
-    let totalScore = 0; //  合計得点
-
     let quizData = []; // 現在のレベルの問題リスト
     let currentLevel = 1; // 現在のレベル
     let level = 1; // レベル
@@ -500,6 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {// htmlやCSSを読み込�
 
 //レベル説明        
     function levelSetumei(currentLevel) {
+      
       showScreen('levelScreen');//レベル説明画面への切り替え
       updateLevelScreen();
       startButton.style.display = "block"; // 開始ボタンを表示
@@ -515,22 +508,20 @@ document.addEventListener("DOMContentLoaded", () => {// htmlやCSSを読み込�
         }
 
 
-    //ゲーム中
+//ゲーム画面に切り替え
 function startLevel() {
             showScreen('gameScreen');
         }
 
 //画面を切り替えるための関数
 function showScreen(id) {//表示したい画面のidを渡す
-            console.log("ココを通りました： ",id);
             document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));//全てのスクリーンを非表示
             document.getElementById(id).classList.add('active');//指定したidだけ表示
         }
   
-    //ゲームスタート関数
+//ゲームスタート関数
     function gameStart() {
         startButton.addEventListener("click", () => { //スタートボタンクリック時の動作
-          //level++;     //レベルを上げる
             yarinaosiKaisu=1
             startButton.style.display = "none"; // 開始ボタンを非表示
             fireButton.style.display = "block"; //発射ボタンを表示
@@ -546,6 +537,10 @@ function showScreen(id) {//表示したい画面のidを渡す
     function quizuLevel(level) {
         currentLevel = level; // 現在のレベルを記録
         quizData = [...quizLevels[level]]; //  選択したレベルの問題をコピー
+        if (level > 3){//レベル3を越えたら上付き下付ボタンを表示する
+          superscriptButton.style.display = "block"; //上付きボタンを表示   
+          subscriptButton.style.display = "block"; //下付ボタンを表示   
+        }      
         currentQuestionIndex = 0;
         score = 0; // スコアの初期化
         wrongAnswers = []; //  間違えた問題をリセット
@@ -556,7 +551,6 @@ function showScreen(id) {//表示したい画面のidを渡す
 
 //画面リセット関数
     function gamenRest() {
-        //document.getElementById("finalScore").style.display = "none";
         document.getElementById("restartButton").style.display = "none";
         document.getElementById("nextlevelButton").style.display = "none";
         document.getElementById("fallingText").style.display = "block";
@@ -570,7 +564,7 @@ function showScreen(id) {//表示したい画面のidを渡す
     function loadQuestion() { 
         updateLifeDisplay()//♥の表示更新
         if (currentQuestionIndex >= quizData.length || timeOutCount >= maxLives) {  //全ての問題を終了したら
-            endGame(); // ゲーム終了
+            endGame(); // ゲーム終了処理へ
         return; // 以降の処理を実行しない
         }
         // `fragment` クラスの不要な文字を削除（前回の散乱をリセット）
@@ -579,13 +573,22 @@ function showScreen(id) {//表示したい画面のidを渡す
         nextButton.style.display = "none";                //次のボタンを非表示
         fallingText.textContent = question.name;          //落下文字に問題を代入
         fallingText.style.display = "block";              //落下文字を表示
+        
+        cancelAnimationFrame(moveFallingText); // 前のアニメーションをキャンセル
         fallStep = 0;                                     //落下ステップをリセット
         isFalling = true;                                 //落下中にする
+        fallingText.style.top = "0px";//落下位置リセット
+        fallingText.style.display = "block";
+
         document.getElementById("scoreDisplay").textContent = `スコア: ${score}`;//スコアを表示
+        document.getElementById("totalScoreDisplay").textContent = `Total Score: ${totalScore}`;; //  得点を表示
         clearInterval(timer);                             // タイマーをリセット
         mojiInput(currentQuestionIndex);                  //文字入力処理へ
         startTimer();                                     //タイマー始動
-        moveFallingText();                                //落下文字移動
+        //moveFallingText();                                //落下文字移動
+
+        lastTimestamp = performance.now(); // 現在の時間を取得
+        requestAnimationFrame(moveFallingText); // 落下アニメーション開始
     }
 
 //文字入力設定    
@@ -611,7 +614,7 @@ function mojiInput(currentQuestionIndex){
 function insertText(char) {
     const inputField = document.getElementById("inputText");
     const cursorPosition = inputField.selectionStart; // カーソルの位置を取得
-    // 🔴 カーソル位置に `char` を挿入
+    // カーソル位置に `char` を挿入
     inputField.value = 
         inputField.value.slice(0, cursorPosition) + char + inputField.value.slice(cursorPosition);
     inputField.selectionStart = inputField.selectionEnd = cursorPosition + 1; // カーソルを挿入位置の後ろに移動
@@ -620,18 +623,32 @@ function insertText(char) {
 
     
 // 文字を落下させる関数
-    function moveFallingText() {  
-      if (fallStep <= totalFallSteps && isFalling) {//落下ステップが最大ステップ以下かつ落下中の場合
+    function moveFallingText(timestamp) {  //ココいじった
+      if (!isFalling) return;
+
+      let elapsed = timestamp - lastTimestamp; // 前回のフレームからの経過時間
+      if (elapsed >= fallStepDuration) {
+        lastTimestamp = timestamp; // タイムスタンプを更新
+        fallStep++;
         const percentage = (fallStep / totalFallSteps) * maxFallHeight;//パーセンテージ計算
         fallingText.style.top = `calc(${percentage}vh)`;        //落下文字の位置を設定
+      }
+
+      if (fallStep <= totalFallSteps && isFalling) {//落下ステップが最大ステップ以下かつ落下中の場合
+
+        //const percentage = (fallStep / totalFallSteps) * maxFallHeight;//パーセンテージ計算
+        //console.log(fallStep,timeLeft);
+        //fallingText.style.top = `calc(${percentage}vh)`;        //落下文字の位置を設定
         checkCollision();                                       //衝突確認
         const fallingRect = fallingText.getBoundingClientRect();//落下文字の矩形を取得
         const windowHeight = window.innerHeight;                //ウィンドウの高さ
         if (fallingRect.bottom >= windowHeight) {               // 落下文字が画面下端に到達したら
             jikangireShori(); // 時間切れ処理
         } else {
-            fallStep++;
-            setTimeout(moveFallingText, fallStepDuration);
+          requestAnimationFrame(moveFallingText); // 次のフレームを予約
+            //fallStep++;ココいじった
+            //setTimeout(moveFallingText, fallStepDuration);ココいじった
+            //fallingTimeout = setTimeout(moveFallingText, fallStepDuration);
         }
       }
   }
@@ -669,7 +686,9 @@ function insertText(char) {
         clearInterval(timer);             // タイマー停止
         explosionSound.play();            // 爆発音再生
         score += timeLeft/yarinaosiKaisu; // 残り時間をスコアに加算
+        totalScore = totalScore + timeLeft/yarinaosiKaisu;
         document.getElementById("scoreDisplay").textContent = `スコア: ${score}`;
+        document.getElementById("totalScoreDisplay2").textContent = `Total Score: ${totalScore}`; //  得点を表示
         scatterText(fallingRect);         // 散乱文字
     }
 // 不正解処理関数（本当の不正解は時間切れ）
@@ -718,18 +737,13 @@ function restartGame() {
     wrongAnswers = [];          // クリアして、新たな間違いを記録できるようにする
     gamenRest ();               // 画面をリセット   
     updateLifeDisplay();        // ライフを更新
-    updateTotalScoreDisplay();  // 最高得点を再表示
+    //updateTotalScoreDisplay();  // 得点を再表示
     loadQuestion();             // 問題読み込み
 }
 
-//合計得点更新関数
-function updateTotalScore() {
-  //if (score > totalScore) { //新しいスコアが最高得点なら更新
-    totalScore = totalScore + score;    
-  //}
-}
+
 //合計得点表示更新関数
-function updateTotalScoreDisplay() {
+function updateTotalDisplay() {
   document.getElementById("totalScoreDisplay").textContent = `Total Score: ${totalScore}`;
 }
 
@@ -835,10 +849,8 @@ function endGame() {
     timeoutMessage.style.display = "none"; // 「時間切れ」メッセージを非表示
     risingText.style.display = "none";//  上昇文字を表示
     formattedAnswer.style.display = "none"; // フォーマットテキストを非表示
-//  スコアを表示
-    updateTotalScore(); //  最高得点を更新
-    updateTotalScoreDisplay(); //  最高得点を表示
-    finalScore.innerHTML = `今回のスコア: ${score}`;
+    finalScore = totalScore
+    document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${totalScore}`;; //  得点を表示
 // クイズ要素を非表示
     document.getElementById("fallingText").style.display = "none";
     document.getElementById("risingText").style.display = "none";
@@ -858,10 +870,13 @@ function endGame() {
       document.getElementById("restartButton").style.display = "block"; // やりなおしボタン表示
     } else {  //全問正解のときの処理
       document.getElementById("wrongAnswersList").style.display = "none"; // 全問正解なら非表示
-      finalScore.innerHTML = `今回のスコア: ${score}`;
+      
       level++;
       if (level > 6) {
-        saveScore()
+ 
+        document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${totalScore}`;
+        showScreen('endScreen');
+        return;
       }
       currentLevel=level;     //レベルを上げる
       levelSetumei(currentLevel);
@@ -883,17 +898,19 @@ function endGame() {
 
 //スコア表示        
         function showScoreScreen() {
-            document.getElementById('finalScore').innerText = score;
+      
+          document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${totalScore}`;
             showScreen('scoreScreen');
         }
-//ニックネーム入力
-        function saveScore() {
-            const nickname = document.getElementById('nickname').value;
-            if (nickname.trim() === '') {
-                alert('ニックネームを入力し，Total Scoreをスクショしてください！');
-                return;
+
+        function endLevel() {
+            if (currentLevel < maxLevel) {
+                currentLevel++;
+                showScreen('levelScreen');
+                updateLevelScreen();
+            } else {
+                showScreen('endScreen');
             }
-            alert(`スコアが保存されました！\nニックネーム: ${nickname}\nスコア: ${score}`);
         }
     </script>
 
