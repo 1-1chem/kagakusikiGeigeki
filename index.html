@@ -282,6 +282,14 @@
   cursor: pointer;
   border-radius: 8px;
 }
+
+#finalComment {
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      font-size: 40px;      font-weight: bold;      color: rgb(255, 0, 0);
+
+
     
     @keyframes rise {
       0% {bottom: 0;}
@@ -358,7 +366,9 @@
     <div id="endScreen" class="screen">
         <h1>Completed the game.</h1>
         <h2>You are amazing！</h2>
+        <div id="finalComment">あなたは: 0</div>
         <div id="totalScoreDisplay3">Total Score: 0</div>
+
     </div>
 
     <!-- ニックネーム入力画面 -->
@@ -873,8 +883,28 @@ function endGame() {
       
       level++;
       if (level > 6) {
- 
+          
+        let finalComment = "";
+
+            if (totalScore >= 0 && totalScore <= 20) {
+              finalComment = "へなちょこ";
+            } else if (totalScore >= 21 && totalScore <= 40) {
+              finalComment = "修行が足りん";
+            } else if (totalScore >= 41 && totalScore <= 60) {
+              finalComment = "ちょこざいな";
+            } else if (totalScore >= 61 && totalScore <= 80) {
+              finalComment = "すこしはできるな";
+            } else if (totalScore >= 81 && totalScore <= 99) {
+              finalComment = "優秀";
+            } else {
+              finalComment = "範囲外の値です";
+            }
+        
+        
         document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${totalScore}`;
+        
+        document.getElementById("finalComment").textContent = `あなたは: ${finalComment}`;
+        
         showScreen('endScreen');
         return;
       }
