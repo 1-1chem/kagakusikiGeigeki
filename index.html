@@ -189,7 +189,7 @@
     #totalScoreDisplay3 {
       position: absolute;
       top: 20%;
-      left: 35%;
+      left: 40%; 
       font-size: 40px;      font-weight: bold;      color: blue;
     }
 
@@ -673,10 +673,13 @@ function showScreen(id) {//表示したい画面のidを渡す
         isFalling = true;                                 //落下中にする
         fallingText.style.top = "0px";//落下位置リセット
         fallingText.style.display = "block";
-
+        
         document.getElementById("scoreDisplay").textContent = `スコア: ${score}`;//スコアを表示
-        document.getElementById("totalScoreDisplay").textContent = `Total Score: ${totalScore}`;; //  得点を表示
+        
+        var roundedtotalScore = totalScore.toFixed(1);
+        document.getElementById("totalScoreDisplay").textContent = `Total Score: ${roundedtotalScore}`;; //  得点を表示
         clearInterval(timer);                             // タイマーをリセット
+      
         mojiInput(currentQuestionIndex);                  //文字入力処理へ
         startTimer();                                     //タイマー始動
         //moveFallingText();                                //落下文字移動
@@ -782,7 +785,8 @@ function insertText(char) {
         score += timeLeft/yarinaosiKaisu; // 残り時間をスコアに加算
         totalScore = totalScore + timeLeft/yarinaosiKaisu;
         document.getElementById("scoreDisplay").textContent = `スコア: ${score}`;
-        document.getElementById("totalScoreDisplay2").textContent = `Total Score: ${totalScore}`; //  得点を表示
+        var roundedtotalScore = totalScore.toFixed(1);
+        document.getElementById("totalScoreDisplay2").textContent = `Total Score: ${roundedtotalScore}`;; //  得点を表示
         scatterText(fallingRect);         // 散乱文字
     }
 // 不正解処理関数（本当の不正解は時間切れ）
@@ -944,8 +948,10 @@ function endGame() {
     risingText.style.display = "none";//  上昇文字を表示
     formattedAnswer.style.display = "none"; // フォーマットテキストを非表示
     finalScore = totalScore
-    document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${totalScore}`;; //  得点を表示
-// クイズ要素を非表示
+    var roundedtotalScore = totalScore.toFixed(1);
+        document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${roundedtotalScore}`;; //  得点を表示
+
+    // クイズ要素を非表示
     document.getElementById("fallingText").style.display = "none";
     document.getElementById("risingText").style.display = "none";
     document.getElementById("inputContainer").style.display = "none";
@@ -985,9 +991,10 @@ function endGame() {
             }
         
         
-        document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${totalScore}`;
+            var roundedtotalScore = totalScore.toFixed(1);
+        document.getElementById("totalScoreDisplay3").textContent = `Total Score: ${roundedtotalScore}`;; //  得点を表示
         
-        document.getElementById("finalComment").textContent = `あなたは: ${finalComment}`;
+        document.getElementById("finalComment").textContent = `あなたは ${finalComment}`;
         
         showScreen('endScreen');
         return;
