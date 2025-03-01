@@ -5,226 +5,257 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ゲーム</title>
     <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      height: 100vh;
-      background-color: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      font-family: -apple-system, "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-    }
-    .screen { 
-      display: none; text-align: center; margin-top: 0px; 
-      margin: 0; overflow: hidden;  height: 100vh;
-    }
-    .active { display: block; }
-    
-    .container {
-      position: relative;
-      width: 100%;
-      max-width: 100%; /* 🔴 iPhone でもはみ出さない */
-      height: 100%;
-    }
-    .text {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 24px;     font-weight: bold;    color: #333;
-    }
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: -apple-system, "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
 
-/* 🔴🔴🔴🔴 落下文字🔴🔴🔴 */
-    .text-fall {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);/*ココを100にすれば全画面*/
-        font-size: 24px;   font-weight: bold;  color: #333;
-        top: 10%;    }
+/* 画面の切り替え */
+.screen {
+  display: none;
+  text-align: center;
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+}
 
-/* 🔴🔴🔴🔴 発射文字🔴🔴🔴 */
-    .text-rise {
-        font-size: 48px;   font-weight: bold;  color: #333;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 45%; /* 🔴 初期位置を設定 */
-    }
+.active {
+  display: block;
+}
 
-/* 🔴🔴🔴🔴上付き下付きのサイズの調整🔴🔴🔴 */
-    .text-rise sup { font-size: 36px; }
-    .text-rise sub { font-size: 36px;  }
+/* コンテナ */
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
 
-    .fragment {
-        position: absolute;
-        font-size: 24px;
-        font-weight: bold; color: #333;
-        opacity: 0;
-        animation: scatter 1s forwards;
-    }
-   
-/* 🔴🔴🔴🔴時間切れメッセージ🔴🔴🔴 */
-.timeout-message {
-        font-size: 24px;   font-weight: bold;        color: #fe0101;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 15%; /*  初期位置を設定 */
-        display: none;
-    }
-
-#inputContainer {
-      position: absolute;
-      top: 55%;
-      right: 43%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      display: none; /* 最初は非表示 */
-    }
-    
-/* 🔴🔴🔴🔴 入力欄🔴🔴🔴 */
-#inputText {
-      right: 45%;
-      width: 100px; /*  最小幅を設定 */
-      font-size: 8px; /* 文字サイズを適切に */
-      padding: 4px 8px; /* 内側の余白を小さくする */
-      margin-bottom: 10px;
-    }
-
-/* 🔴🔴🔴🔴 発射ボタンと次問ボタン🔴🔴🔴 */
-#fireButton, #nextButton {
+/* テキストの共通スタイル */
+.text {
   position: absolute;
-        bottom:0%;
-        left: 175%;
-        padding: 10px 20px;
-        font-size: 20px;
-        width: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 🔴 落下文字 */
+.text-fall {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 🔴 発射文字 */
+.text-rise {
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 45%;
+}
+
+/* 🔴 上付き・下付き文字のサイズ調整 */
+.text-rise sup,
+.text-rise sub {
+  font-size: 36px;
+}
+
+/* 🔴 アニメーション用 */
+.fragment {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  opacity: 0;
+  animation: scatter 1s forwards;
+}
+
+/* 🔴 時間切れメッセージ */
+.timeout-message {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fe0101;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 15%;
+  display: none;
+}
+
+/* 🔴 入力エリア */
+#inputContainer {
+  position: absolute;
+  top: 55%;
+  right: 43%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  display: none;
+}
+
+/* 🔴 入力欄 */
+#inputText {
+  right: 45%;
+  width: 100px;
+  font-size: 8px;
+  padding: 4px 8px;
+  margin-bottom: 10px;
+}
+
+/* 🔴 発射ボタンと次問ボタン */
+#fireButton,
+#nextButton {
+  position: absolute;
+  bottom: 0%;
+  left: 175%;
+  padding: 10px 20px;
+  font-size: 20px;
+  width: 80px;
 }
 
 #fireButton {
-        background-color: #fd0000;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-/* 🔴🔴🔴🔴 次へのボタン🔴🔴🔴 */
+  background-color: #fd0000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 #nextButton {
-        background-color: #5374e1;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
+  background-color: #5374e1;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
-/* 🔴 上付き・下付きボタンを縦並びにする */
+/* 🔴 上付き・下付きボタン */
 #sideButtonContainer {
-    position: absolute;
-    bottom:-75%;
-    left: 100%;
-    display: flex;
-    width: 85px;
-    display: flex;
-    flex-direction: column; /* 🔴 ボタンを縦並びに */
-    gap: 5px; /* 🔴 ボタン間の余白 */
-    margin-right: 40px; /* 🔴 左に寄せるために、余白を増やす */
+  position: absolute;
+  bottom: -75%;
+  left: 100%;
+  display: flex;
+  width: 85px;
+  flex-direction: column;
+  gap: 5px;
+  margin-right: 40px;
 }
 
-/* 🔴 ボタンのスタイル */
-#superscriptButton, #subscriptButton {
-    padding: 8px 12px;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    display: none;
-}
-
-/* 🔴 上付き，下付きボタンの色 */
-#superscriptButton {
-    background-color: #ff9800; /* オレンジ色 */
-    color: white;
-}
+#superscriptButton,
 #subscriptButton {
-    background-color: #4CAF50; /* 緑色 */
-    color: white;
+  padding: 8px 12px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: none;
 }
 
-/* 🔴🔴🔴🔴 スコア表示🔴🔴🔴 */
-    #scoreDisplay {
-        position: absolute;
-        top: 1%;
-        right: 1%;
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-    }
+#superscriptButton {
+  background-color: #ff9800;
+  color: white;
+}
 
-/* 🔴🔴🔴🔴 残り時間表示🔴🔴🔴 */
-    #timerDisplay {
-        position: absolute;
-        top: 7%;
-        right: 1%;
-        font-size: 20px;
-        font-weight: bold;
-        color: #d9534f; /* 赤色 */
-    }
+#subscriptButton {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* 🔴 スコア表示 */
+#scoreDisplay {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 🔴 残り時間表示 */
+#timerDisplay {
+  position: absolute;
+  top: 7%;
+  right: 1%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #d9534f;
+}
+
+/* 🔴 LIFE 表示 */
 #lifeContainer {
-      position: absolute;
-      top: 15%; 
-      right: 1%;
-      text-align: center;
-    }
+  position: absolute;
+  top: 15%;
+  right: 1%;
+  text-align: center;
+}
 
 #lifeLabel {
-      font-size: 28px;      font-weight: bold;      color: black; 
-  margin-bottom: -10px; /* "Life" と "♥♥♥" の間隔 */
+  font-size: 28px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: -10px;
 }
 
-/* 🔴🔴🔴🔴 LIFE表示🔴🔴🔴 */
 #lifeDisplay {
-  font-size: 50px;  font-weight: bold;  color: red; /*  ハートを赤色 */
+  font-size: 50px;
+  font-weight: bold;
+  color: red;
 }
 
-/* 🔴🔴🔴🔴 総合計スコア表示🔴🔴🔴 */
-    #totalScoreDisplay {
-      position: absolute;
-      top: 1%;
-      left: 1%;
-      font-size: 28px;      font-weight: bold;      color: blue;
-    }
-    #totalScoreDisplay2 {
-      position: absolute;
-      top: 1%;
-      left: 1%;
-      font-size: 28px;      font-weight: bold;      color: blue;
-    }
-    #totalScoreDisplay3 {
-      position: absolute;
-      top: 30%;
-      left: 30%; 
-      font-size: 40px;      font-weight: bold;      color: blue;
-    }
+/* 🔴 総合計スコア表示 */
+#totalScoreDisplay,
+#totalScoreDisplay2 {
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  font-size: 28px;
+  font-weight: bold;
+  color: blue;
+}
 
-/* 🔴🔴🔴🔴 フォーマット後の文字表示🔴🔴🔴 */
-    .formatted-answer {
-    
-      font-size: 48px; font-weight: bold;   color: #333;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 45%; /* 🔴 初期位置を設定←ココを10にすると全画面 */
-    }
-    .formatted-answer sup {font-size: 36px;}
+#totalScoreDisplay3 {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  font-size: 40px;
+  font-weight: bold;
+  color: blue;
+}
 
+/* 🔴 フォーマット後の文字表示 */
+.formatted-answer {
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 45%;
+}
 
+.formatted-answer sup {
+  font-size: 36px;
+}
 
-/* 🔴🔴🔴🔴 最終スコア表示🔴🔴🔴 */
+/* 🔴 最終スコア表示 */
 #finalScore {
   display: none;
   position: absolute;
-  top: 50%; /* 「ゲーム終了」の下に配置 */
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 14px;
@@ -233,24 +264,23 @@
   text-align: center;
 }
 
-/* 🔴🔴🔴🔴 やりなおしボタン🔴🔴🔴 */
+/* 🔴 やりなおしボタン */
 #restartButton {
-  display: none; /* 最初は非表示 */
+  display: none;
   position: absolute;
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 15px 30px;
   font-size: 20px;
-  background-color: #FF5733; /* オレンジ色 */
+  background-color: #FF5733;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 8px;
 }
 
-
-/* 🔴🔴🔴🔴 スタートボタン🔴🔴🔴 */
+/* 🔴 スタートボタン */
 #startButton {
   padding: 10px 20px;
   font-size: 18px;
@@ -261,28 +291,28 @@
   border-radius: 5px;
   margin-top: 10px;
   left: 46%;
-  position: relative; /* または absolute */
+  position: relative;
   z-index: 1001;
-  pointer-events: auto; /* クリックを許可 */
+  pointer-events: auto;
 }
 
-/* 🔴🔴🔴🔴 次のレベルボタン🔴🔴🔴 */
+/* 🔴 次のレベルボタン */
 #nextlevelButton {
-  display: none; /* 最初は非表示 */
+  display: none;
   position: absolute;
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 15px 30px;
   font-size: 20px;
-  background-color: #08f704bd; /* 緑色 */
+  background-color: #08f704bd;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 8px;
 }
 
-/* 🔴🔴🔴🔴 説明の次へボタン🔴🔴🔴 */
+/* 🔴 説明の次へボタン */
 #setumeiButton {
   padding: 10px 20px;
   font-size: 18px;
@@ -292,116 +322,117 @@
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
-  position: relative; /* または absolute */
+  position: relative;
   z-index: 1001;
-  pointer-events: auto; /* クリックを許可 */
+  pointer-events: auto;
 }
 
+/* 🔴 最終コメント */
 #finalComment {
-      position: absolute;
-      top: 50%;
-      left: 30%;
-      font-size: 40px;      font-weight: bold;      color: rgb(255, 0, 0);
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  font-size: 40px;
+  font-weight: bold;
+  color: rgb(255, 0, 0);
 }
 
-    
-    @keyframes rise {
-      0% {bottom: 0;}
-      100% {bottom: 100vh;}
-    }
+/* 🔴 アニメーション */
+@keyframes rise {
+  0% { bottom: 0; }
+  100% { bottom: 100vh; }
+}
 
-    @keyframes scatter {
-      0% {opacity: 1;transform: translate(0, 0);
-      }
-      100% {opacity: 0;transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px));
-      }
-    }
- 
+@keyframes scatter {
+  0% { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)); }
+}
 
     </style>
 </head>
 <body>
-    <!-- ゲーム開始前の説明画面 -->
-    <div id="startScreen" class="screen active">
-        <h1>化学式で迎撃せよ！</h1>
-        <h2>(iPad 縦画面 用)</h2>
-        <p>上から落ちてくる物質名を撃ち落せ！</p>
-        <p>化学式を入力し、「発射」ボタンを押す</p>
-        <p>正解なら爆発、 不正解は通過</p>
-        <p>時間切れが3回になるとやり直し</p>
-        <p>全てを撃破せよ</p>
-        <button id ="setumeiButton">次へ</button>
+<!-- ゲーム開始前の説明画面 -->
+<div id="startScreen" class="screen active">
+  <h1>化学式で迎撃せよ！</h1>
+  <h2>(iPad 縦画面 用)</h2>
+  <p>上から落ちてくる物質名を撃ち落せ！</p>
+  <p>化学式を入力し、「発射」ボタンを押す</p>
+  <p>正解なら爆発、不正解は通過</p>
+  <p>時間切れが3回になるとやり直し</p>
+  <p>全てを撃破せよ</p>
+  <button id="setumeiButton">次へ</button>
+</div>
+
+<!-- レベル説明画面（複数スライド） -->
+<div id="levelScreen" class="screen">
+  <div id="totalScoreDisplay">Total Score: 0</div>
+  <h1 id="levelTitle">レベル 1</h1>
+  <p id="levelDescription"></p> <!-- ここに改行付きの説明が表示される -->
+  <button id="startButton" onclick="startLevel()">開始</button>
+</div>
+
+<!-- ゲーム画面 -->
+<div id="gameScreen" class="screen">
+  <div class="container">
+    <div id="totalScoreDisplay2">Total Score: 0</div>
+    <div id="scoreDisplay">スコア: 0</div>
+
+    <div class="text text-fall" id="fallingText"></div>
+    <div id="timerDisplay">残時間: 20秒</div>
+    <div id="timeout-message" class="timeout-message">時間切れ！</div>
+    <div class="text text-rise" id="risingText"><sup></sup></div>
+    <div id="formatted-answer" class="formatted-answer"></div>
+
+    <div id="lifeContainer">
+      <div id="lifeLabel">Life</div>
+      <div id="lifeDisplay">♥♥♥</div>
     </div>
 
-    <!-- レベル説明画面（複数スライド） -->
-    <div id="levelScreen" class="screen">
-      <div id="totalScoreDisplay">Total Score: 0</div>
-        <h1 id="levelTitle">レベル 1</h1>
-        <p id="levelDescription"></p> <!-- ここに改行付きの説明が表示される -->
-    
-        <button id="startButton" onclick="startLevel()" >開始</button>
+    <!-- 入力エリア -->
+    <div id="inputContainer">
+      <input type="text" id="inputText" placeholder="化学式は？">
+      <div id="sideButtonContainer">
+        <button id="superscriptButton">上付き</button>
+        <button id="subscriptButton">下付き</button>
+      </div>
+      <button id="fireButton">発射</button>
+      <button id="nextButton">次へ</button>
     </div>
 
-    <!-- ゲーム画面 -->
-    <div id="gameScreen" class="screen">
-        <div class="container">
-            <div id="totalScoreDisplay2">Total Score: 0</div>
-            <div id="scoreDisplay">スコア: 0</div>
-        
-            <div class="text text-fall" id="fallingText"></div>
-            <div id="timerDisplay">残時間: 20秒</div>
-            <div id="timeout-message" class="timeout-message">時間切れ！</div>
-            <div class="text text-rise" id="risingText"><sup></sup></div>
-            <div id="formatted-answer" class="formatted-answer"></div>
-            <div id="lifeContainer">
-              <div id="lifeLabel">Life</div>
-              <div id="lifeDisplay">♥♥♥</div>
-            </div>
-            <div id="inputContainer">
-                <input type="text" id="inputText" placeholder="化学式は？">
-                <div id="sideButtonContainer">
-                  <button id="superscriptButton">上付き</button>
-                  <button id="subscriptButton">下付き</button>
-                </div>
-                <button id="fireButton">発射</button> 
-                <button id="nextButton">次へ</button>
-            </div>
-              <button id="restartButton">やりなおし</button>
-              <button id="nextlevelButton">次のレベルへ</button>
-     
-              <!-- 間違えた問題の一覧を表示するエリア -->
-          <div id="wrongAnswersList" style="display: none;">
-            <h2>間違えた問題</h2>
-            <ul id="wrongAnswersContainer"></ul>      
-          </div>
-        </div>
+    <button id="restartButton">やりなおし</button>
+    <button id="nextlevelButton">次のレベルへ</button>
+
+    <!-- 間違えた問題の一覧を表示するエリア -->
+    <div id="wrongAnswersList" style="display: none;">
+      <h2>間違えた問題</h2>
+      <ul id="wrongAnswersContainer"></ul>
     </div>
-        <!-- ゲーム終了画面 -->
-    <div id="endScreen" class="screen">
-        <h1>Completed the game.</h1>
-        <h2>You are amazing！</h2>
-        <div id="finalComment">あなたは: 0</div>
-        <div id="totalScoreDisplay3">Total Score: 0</div>
+  </div>
+</div>
 
-    </div>
+<!-- ゲーム終了画面 -->
+<div id="endScreen" class="screen">
+  <h1>Completed the game.</h1>
+  <h2>You are amazing！</h2>
+  <div id="finalComment">あなたは: 0</div>
+  <div id="totalScoreDisplay3">Total Score: 0</div>
+</div>
 
-    <!-- ニックネーム入力画面 -->
-    <div id="scoreScreen" class="screen">
-        <h1>ニックネームの入力</h1>
-        <div id="totalScoreDisplay">Total Score: 0</div>
-        <input type="text" id="nickname" placeholder="ニックネームを入力">
-        <button onclick="saveScore()">スコアを保存</button>
-    </div>
-        
-      <audio id="fireSound" src="fire-sound.mp3" preload="auto"></audio>
-      <audio id="explosionSound" src="explosion-sound.mp3" preload="auto"></audio>
-      <audio id="hazureSound" src="hazure.wav" preload="auto"></audio>
-      <audio id="timeOverSound" src="bubu-.mp3" preload="auto"></audio>
+<!-- ニックネーム入力画面 -->
+<div id="scoreScreen" class="screen">
+  <h1>ニックネームの入力</h1>
+  <div id="totalScoreDisplay">Total Score: 0</div>
+  <input type="text" id="nickname" placeholder="ニックネームを入力">
+  <button onclick="saveScore()">スコアを保存</button>
+</div>
 
+<!-- サウンドエフェクト -->
+<audio id="fireSound" src="fire-sound.mp3" preload="auto"></audio>
+<audio id="explosionSound" src="explosion-sound.mp3" preload="auto"></audio>
+<audio id="hazureSound" src="hazure.wav" preload="auto"></audio>
+<audio id="timeOverSound" src="bubu-.mp3" preload="auto"></audio>
+<audio id="upLevelSound" src="upLevel.mp3" preload="auto"></audio>
 
-
-
-       
     <script>
         const maxLevel = 6;
         let currentDescriptionIndex = 0;
@@ -434,108 +465,51 @@ let quizLevels = {
         { name: "水素", formula: "H" },
         { name: "ヘリウム", formula: "He" },
         { name: "リチウム", formula: "Li" },
-        { name: "ベリリウム", formula: "Be" },
-        { name: "ホウ素", formula: "B" },
-        { name: "炭素", formula: "C" },
-        { name: "窒素", formula: "N" },
-        { name: "酸素", formula: "O" },
-        { name: "フッ素", formula: "F" },
-        { name: "ネオン", formula: "Ne" },
-        { name: "ナトリウム", formula: "Na" },
-        { name: "マグネシウム", formula: "Mg" },
-        { name: "アルミニウム", formula: "Al" },
-        { name: "ケイ素", formula: "Si" },
-        { name: "リン", formula: "P" },
-        { name: "硫黄", formula: "S" },
-        { name: "塩素", formula: "Cl" },
-        { name: "アルゴン", formula: "Ar" },
-        { name: "カリウム", formula: "K" },
-        { name: "カルシウム", formula: "Ca" },
+     
     ],
   2: [
-        { name: "スカンジウム", formula: "Sc" },
-        { name: "チタン", formula: "Ti" },
-        { name: "バナジウム", formula: "V" },
-        { name: "クロム", formula: "Cr" },
-        { name: "マンガン", formula: "Mn" },
-        { name: "鉄", formula: "Fe" },
-        { name: "コバルト", formula: "Co" },
-        { name: "ニッケル", formula: "Ni" },
-        { name: "銅", formula: "Cu" },
-        { name: "亜鉛", formula: "Zn" },
-        { name: "ガリウム", formula: "Ga" },
-        { name: "ゲルマニウム", formula: "Ge" },
-        { name: "ヒ素", formula: "As" },
-        { name: "セレン", formula: "Se" },
         { name: "臭素", formula: "Br" },
         { name: "クリプトン", formula: "Kr" },
   ],
   3: [
-        { name: "ストロンチウム", formula: "Sr" },
-        { name: "パラジウム", formula: "Pd" },
-        { name: "銀", formula: "Ag" },
-        { name: "カドミウム", formula: "Cd" },
-        { name: "スズ", formula: "Sn" },
-        { name: "アンチモン", formula: "Sb" },
-        { name: "ヨウ素", formula: "I" },
-        { name: "キセノン", formula: "Xe" },
-        { name: "バリウム", formula: "Ba" },
-        { name: "タンタル", formula: "Ta" },
-        { name: "タングステン", formula: "W" },
-        { name: "白金", formula: "Pt" },
-        { name: "金", formula: "Au" },
-        { name: "水銀", formula: "Hg" },
         { name: "鉛", formula: "Pb" },
         { name: "ウラン", formula: "U" },
   ],
   4: [
         { name: "水素イオン", formula: "H+^" },
         { name: "リチウムイオン", formula: "Li+^" },
-        { name: "酸化物イオン", formula: "O2^-^" },
-        { name: "フッ化物イオン", formula: "F-^" },
-        { name: "ナトリウムイオン", formula: "Na+^" },
-        { name: "マグネシウムイオン", formula: "Mg2^+^" },
-        { name: "アルミニウムイオン", formula: "Al3^+^" },
-        { name: "硫化物イオン", formula: "S2^-^" },
-        { name: "塩化物イオン", formula: "Cl-^" },
-        { name: "カリウムイオン", formula: "K+^" },
-        { name: "カルシウムイオン", formula: "Ca2^+^" },
+
   ],
   5: [
-        { name: "クロム(Ⅲ)イオン", formula: "Cr3^+^" },
-        { name: "マンガン(Ⅱ)イオン", formula: "Mn2^+^" },
-        { name: "鉄(Ⅱ)イオン", formula: "Fe2^+^" },
-        { name: "鉄(Ⅲ)イオン", formula: "Fe3^+^" },
-        { name: "ニッケル(Ⅱ)イオン", formula: "Ni2^+^" },
-        { name: "銅(Ⅰ)イオン", formula: "Cu+^" },
-        { name: "銅(Ⅱ)イオン", formula: "Cu2^+^" },
-        { name: "亜鉛イオン", formula: "Zn2^+^" },
-        { name: "臭化物イオン", formula: "Br-^" },
-        { name: "ストロンチウムイオン", formula: "Sr2^+^" },
-        { name: "銀イオン", formula: "Ag+^" },
-        { name: "ヨウ化物イオン", formula: "I-^" },
-        { name: "スズ(Ⅱ)イオン", formula: "Sn2^+^" },
-        { name: "スズ(Ⅳ)イオン", formula: "Sn4^+^" },
-        { name: "バリウムイオン", formula: "Ba2^+^" },
         { name: "水銀(Ⅱ)イオン", formula: "Hg2^+^" },
         { name: "鉛(Ⅱ)イオン", formula: "Pb2^+^" },
   ],
   6: [
         { name: "水酸化物イオン", formula: "OH-^" },
         { name: "アンモニウムイオン", formula: "NH4_+^" },
-        { name: "硝酸イオン", formula: "NO3_-^" },
-        { name: "炭酸イオン", formula: "CO3_2^-^" },
-        { name: "炭酸水素イオン", formula: "HCO3_-^" },
-        { name: "硫酸イオン", formula: "SO4_2^-^" },
-        { name: "リン酸イオン", formula: "PO4_3^-^" },
-        { name: "過マンガン酸イオン", formula: "MnO4_-^" },
-        { name: "クロム酸イオン", formula: "CrO4_2^-^" },
-        { name: "二クロム酸イオン", formula: "Cr2_O7_2^-^" },
-        { name: "酢酸イオン", formula: "CH3_COO-^" },
     ]
   };
 
-//定数の宣言
+// 各レベルの曲のリスト
+const musicTracks = [
+    "level1.mp3", // レベル 1
+    "level2.mp3", // レベル 2
+    "level3.mp3", // レベル 3
+    "level4.mp3", // レベル 4
+    "level5.mp3", // レベル 5
+    "level6.mp3"  // レベル 6
+];
+const volumeLevels = [
+    0.2, // レベル 1 の音量（最大）
+    0.2, // レベル 2
+    0.2, // レベル 3
+    0.2, // レベル 4
+    0.2, // レベル 5
+    0.2  // レベル 6（ちょっと大きめ）
+];
+  //定数の宣言
+  let audio = new Audio(); // 音楽プレイヤー
+
     const startButton = document.getElementById("startButton");       //スタートボタン
     const inputTextInput = document.getElementById('inputText');    //入力欄
     const formattedAnswer = document.getElementById("formatted-answer");//フォーマットされた解答
@@ -547,6 +521,8 @@ let quizLevels = {
     const hazureSound = document.getElementById('hazureSound');// 爆発音
     const nextButton = document.getElementById('nextButton');       // 次のボタン   
     const timeOverSound = document.getElementById('timeOverSound');  // 時間切れ音
+    const upLevelSound = document.getElementById('upLevelSound');
+    
     const timeoutMessage = document.getElementById("timeout-message");//時間切れメッセージ
     const correctFormula = document.getElementById('correctFormula'); //正解
 //初期設定
@@ -580,8 +556,6 @@ let quizLevels = {
     let currentLevel = 1; // 現在のレベル
     let level = 1; // レベル
     let currentQuestionIndex = 0;//現在の問題インデックス
-
-
 
 //スタートボタンのクリックイベント  
 document.addEventListener("DOMContentLoaded", () => {// htmlやCSSを読み込んだら実行
@@ -639,15 +613,28 @@ function showScreen(id) {//表示したい画面のidを渡す
             startButton.style.display = "none"; // 開始ボタンを非表示
             fireButton.style.display = "block"; //発射ボタンを表示
             quizuLevel(level)//クイズレベルの処理
-            
+            playMusicForLevel(currentLevel);
+
         });
         fireButton.addEventListener("click", () => { // スマホで音が出るようにクリックイベントの中で再生
-            fireSound.currentTime = 0; // 音をリセット
+            fire.currentTime = 0; // 音をリセット
             fireSound.play().catch(e => console.error("再生エラー:", e)); // スマホ対応
         });
     }
 
-//クイズレベルの処理
+// 🎵 レベルに応じた音楽を再生
+function playMusicForLevel(level) {
+    if (level < 1 || level > 6) return; // レベル範囲外なら何もしない
+    
+    audio.src = musicTracks[level - 1]; // レベルに対応した曲をセット
+    audio.volume = volumeLevels[level - 1]; // 音量を設定
+    audio.loop = true; // ループ再生
+    console.log(musicTracks[level - 1]);
+    
+    audio.play();
+}
+
+    //クイズレベルの処理
     function quizuLevel(level) {
         currentLevel = level; // 現在のレベルを記録
         quizData = [...quizLevels[level]]; //  選択したレベルの問題をコピー
@@ -658,10 +645,11 @@ function showScreen(id) {//表示したい画面のidを渡す
         currentQuestionIndex = 0;
         score = 0; // スコアの初期化
         wrongAnswers = []; //  間違えた問題をリセット
+        
+        
         gamenRest ();//  画面をリセット
         loadQuestion(); //  クイズの読み込み
     }
-
 
 //画面リセット関数
     function gamenRest() {
@@ -699,7 +687,7 @@ function showScreen(id) {//表示したい画面のidを渡す
         var roundedtotalScore = totalScore.toFixed(1);
         document.getElementById("totalScoreDisplay").textContent = `Total Score: ${roundedtotalScore}`;; //  得点を表示
         clearInterval(timer);                             // タイマーをリセット
-      
+        //level1Sound.play();
         mojiInput(currentQuestionIndex);                  //文字入力処理へ
         startTimer();                                     //タイマー始動
         //moveFallingText();                                //落下文字移動
@@ -811,7 +799,7 @@ function insertText(char) {
     }
 // 不正解処理関数（本当の不正解は時間切れ）
   function fuseikaiShori() {
-        hazureSound.play();//ハズレ再生
+        hazure.play();//ハズレ再生
     }
 
 //　文字バラバラ関数
@@ -992,8 +980,10 @@ function endGame() {
       document.getElementById("wrongAnswersList").style.display = "none"; // 全問正解なら非表示
       
       level++;
+      
       if (level > 6) {
-          
+        audio.pause(); // 現在の曲を停止  
+        
         let finalComment = "";
 
             if (totalScore >= 0 && totalScore <= 1000) {
@@ -1019,6 +1009,9 @@ function endGame() {
         showScreen('endScreen');
         return;
       }
+      audio.pause(); // 現在の曲を停止
+      const uplevelSound = new Audio("uplevel.mp3"); // 効果音のファイル名
+      uplevelSound.play();
       currentLevel=level;     //レベルを上げる
       levelSetumei(currentLevel);
       quizuLevel(currentLevel)
@@ -1056,6 +1049,8 @@ function endGame() {
         function endLevel() {
             if (currentLevel < maxLevel) {
                 currentLevel++;
+              
+
                 showScreen('levelScreen');
                 updateLevelScreen();
             } else {
