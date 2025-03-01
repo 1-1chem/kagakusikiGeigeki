@@ -52,7 +52,7 @@
         bottom: 45%; /* 🔴 初期位置を設定 */
     }
 
-    /* 🔴🔴🔴🔴上付き下付きのサイズの調整🔴🔴🔴 */
+/* 🔴🔴🔴🔴上付き下付きのサイズの調整🔴🔴🔴 */
     .text-rise sup { font-size: 36px; }
     .text-rise sub { font-size: 36px;  }
 
@@ -63,11 +63,9 @@
         opacity: 0;
         animation: scatter 1s forwards;
     }
-    
-    
-    
+   
 /* 🔴🔴🔴🔴時間切れメッセージ🔴🔴🔴 */
-    .timeout-message {
+.timeout-message {
         font-size: 24px;   font-weight: bold;        color: #fe0101;
         position: absolute;
         left: 50%;
@@ -76,10 +74,10 @@
         display: none;
     }
 
-    #inputContainer {
+#inputContainer {
       position: absolute;
       top: 55%;
-      right: 45%;
+      right: 43%;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -89,8 +87,8 @@
 /* 🔴🔴🔴🔴 入力欄🔴🔴🔴 */
 #inputText {
       right: 45%;
-      width: 120px; /*  最小幅を設定 */
-      font-size: 14px; /* 文字サイズを適切に */
+      width: 100px; /*  最小幅を設定 */
+      font-size: 8px; /* 文字サイズを適切に */
       padding: 4px 8px; /* 内側の余白を小さくする */
       margin-bottom: 10px;
     }
@@ -99,9 +97,9 @@
 #fireButton, #nextButton {
   position: absolute;
         bottom:0%;
-        left: 145%;
+        left: 175%;
         padding: 10px 20px;
-        font-size: 16px;
+        font-size: 20px;
         width: 80px;
 }
 
@@ -123,10 +121,10 @@
 /* 🔴 上付き・下付きボタンを縦並びにする */
 #sideButtonContainer {
     position: absolute;
-    bottom:-40%;
+    bottom:-75%;
     left: 100%;
     display: flex;
-    width: 60px;
+    width: 85px;
     display: flex;
     flex-direction: column; /* 🔴 ボタンを縦並びに */
     gap: 5px; /* 🔴 ボタン間の余白 */
@@ -136,7 +134,7 @@
 /* 🔴 ボタンのスタイル */
 #superscriptButton, #subscriptButton {
     padding: 8px 12px;
-    font-size: 12px;
+    font-size: 18px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -158,7 +156,7 @@
         position: absolute;
         top: 1%;
         right: 1%;
-        font-size: 14px;
+        font-size: 20px;
         font-weight: bold;
         color: #333;
     }
@@ -166,30 +164,46 @@
 /* 🔴🔴🔴🔴 残り時間表示🔴🔴🔴 */
     #timerDisplay {
         position: absolute;
-        top: 4%;
+        top: 7%;
         right: 1%;
-        font-size: 14px;
+        font-size: 20px;
         font-weight: bold;
         color: #d9534f; /* 赤色 */
     }
+#lifeContainer {
+      position: absolute;
+      top: 15%; 
+      right: 1%;
+      text-align: center;
+    }
+
+#lifeLabel {
+      font-size: 28px;      font-weight: bold;      color: black; 
+  margin-bottom: -10px; /* "Life" と "♥♥♥" の間隔 */
+}
+
+/* 🔴🔴🔴🔴 LIFE表示🔴🔴🔴 */
+#lifeDisplay {
+  font-size: 50px;  font-weight: bold;  color: red; /*  ハートを赤色 */
+}
 
 /* 🔴🔴🔴🔴 総合計スコア表示🔴🔴🔴 */
     #totalScoreDisplay {
       position: absolute;
       top: 1%;
       left: 1%;
-      font-size: 20px;      font-weight: bold;      color: blue;
+      font-size: 28px;      font-weight: bold;      color: blue;
     }
     #totalScoreDisplay2 {
       position: absolute;
       top: 1%;
       left: 1%;
-      font-size: 20px;      font-weight: bold;      color: blue;
+      font-size: 28px;      font-weight: bold;      color: blue;
     }
     #totalScoreDisplay3 {
       position: absolute;
-      top: 20%;
-      left: 40%; 
+      top: 30%;
+      left: 30%; 
       font-size: 40px;      font-weight: bold;      color: blue;
     }
 
@@ -204,22 +218,7 @@
     }
     .formatted-answer sup {font-size: 36px;}
 
-  #lifeContainer {
-      position: absolute;
-      top: 7%; 
-      right: 1%;
-      text-align: center;
-    }
 
-#lifeLabel {
-      font-size: 16px;      font-weight: bold;      color: black; 
-  margin-bottom: 1px; /* "Life" と "♥♥♥" の間隔 */
-}
-
-/* 🔴🔴🔴🔴 LIFE表示🔴🔴🔴 */
-#lifeDisplay {
-  font-size: 18px;  font-weight: bold;  color: red; /*  ハートを赤色 */
-}
 
 /* 🔴🔴🔴🔴 最終スコア表示🔴🔴🔴 */
 #finalScore {
@@ -283,10 +282,25 @@
   border-radius: 8px;
 }
 
+/* 🔴🔴🔴🔴 説明の次へボタン🔴🔴🔴 */
+#setumeiButton {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  position: relative; /* または absolute */
+  z-index: 1001;
+  pointer-events: auto; /* クリックを許可 */
+}
+
 #finalComment {
       position: absolute;
       top: 50%;
-      left: 40%;
+      left: 30%;
       font-size: 40px;      font-weight: bold;      color: rgb(255, 0, 0);
 
 
@@ -383,6 +397,10 @@
       <audio id="explosionSound" src="explosion-sound.mp3" preload="auto"></audio>
       <audio id="hazureSound" src="hazure.wav" preload="auto"></audio>
       <audio id="timeOverSound" src="bubu-.mp3" preload="auto"></audio>
+
+
+
+
        
     <script>
         const maxLevel = 6;
@@ -564,6 +582,7 @@ let quizLevels = {
     let currentQuestionIndex = 0;//現在の問題インデックス
 
 
+
 //スタートボタンのクリックイベント  
 document.addEventListener("DOMContentLoaded", () => {// htmlやCSSを読み込んだら実行
     const setumeiButton = document.getElementById("setumeiButton");//setumeiボタン
@@ -620,6 +639,7 @@ function showScreen(id) {//表示したい画面のidを渡す
             startButton.style.display = "none"; // 開始ボタンを非表示
             fireButton.style.display = "block"; //発射ボタンを表示
             quizuLevel(level)//クイズレベルの処理
+            
         });
         fireButton.addEventListener("click", () => { // スマホで音が出るようにクリックイベントの中で再生
             fireSound.currentTime = 0; // 音をリセット
@@ -631,7 +651,7 @@ function showScreen(id) {//表示したい画面のidを渡す
     function quizuLevel(level) {
         currentLevel = level; // 現在のレベルを記録
         quizData = [...quizLevels[level]]; //  選択したレベルの問題をコピー
-        if (level > 3){//レベル3を越えたら上付き下付ボタンを表示する
+        if (level > 0){//レベル3を越えたら上付き下付ボタンを表示する
           superscriptButton.style.display = "block"; //上付きボタンを表示   
           subscriptButton.style.display = "block"; //下付ボタンを表示   
         }      
