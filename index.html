@@ -627,7 +627,7 @@ function playMusicForLevel(level) {
     if (level < 1 || level > 6) return; // レベル範囲外なら何もしない
     
     audio.src = musicTracks[level - 1]; // レベルに対応した曲をセット
-    audio.volume = volumeLevels[level - 1]; // 音量を設定
+    //audio.volume = volumeLevels[level - 1]; // 音量を設定
     audio.loop = true; // ループ再生
     console.log(musicTracks[level - 1]);
     
