@@ -492,20 +492,20 @@ let quizLevels = {
 
 // 各レベルの曲のリスト
 const musicTracks = [
-    "level1.mp3", // レベル 1
-    "level2.mp3", // レベル 2
-    "level3.mp3", // レベル 3
-    "level4.mp3", // レベル 4
-    "level5.mp3", // レベル 5
-    "level6.mp3"  // レベル 6
+    "level_s1.mp3", // レベル 1
+    "level_s2.mp3", // レベル 2
+    "level_s3.mp3", // レベル 3
+    "level_s4.mp3", // レベル 4
+    "level_s5.mp3", // レベル 5
+    "level_s6.mp3"  // レベル 6
 ];
 const volumeLevels = [
-    0.2, // レベル 1 の音量（最大）
-    0.2, // レベル 2
-    0.2, // レベル 3
-    0.2, // レベル 4
-    0.2, // レベル 5
-    0.2  // レベル 6（ちょっと大きめ）
+    1.0, // レベル 1 の音量（最大）
+    1.0, // レベル 2
+    1.0, // レベル 3
+    1.0, // レベル 4
+    1.0, // レベル 5
+    1.0  // レベル 6（ちょっと大きめ）
 ];
   //定数の宣言
   let audio = new Audio(); // 音楽プレイヤー
@@ -617,7 +617,7 @@ function showScreen(id) {//表示したい画面のidを渡す
 
         });
         fireButton.addEventListener("click", () => { // スマホで音が出るようにクリックイベントの中で再生
-            fire.currentTime = 0; // 音をリセット
+            fireSound.currentTime = 0; // 音をリセット
             fireSound.play().catch(e => console.error("再生エラー:", e)); // スマホ対応
         });
     }
