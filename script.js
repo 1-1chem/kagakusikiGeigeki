@@ -73,7 +73,7 @@ const volumeLevels = [
     1.0  // レベル 6（ちょっと大きめ）
 ];
   //定数の宣言
-  let audio = new Audio(); // 音楽プレイヤー
+  let  = new Audio(); // 音楽プレイヤー
 
     const inputTextInput = document.getElementById('inputText');    //入力欄
     const formattedAnswer = document.getElementById("formatted-answer");//フォーマットされた解答
@@ -178,7 +178,6 @@ function showScreen(id) {//表示したい画面のidを渡す
             fireButton.style.display = "block"; //発射ボタンを表示
             quizuLevel(level)//クイズレベルの処理
             setVolume(0.1);
-            
             playMusicForLevel(currentLevel);
             
 
@@ -226,7 +225,7 @@ function playMusicForLevel(level) {
 
           audioSource.connect(gainNode);
           gainNode.connect(audioContext.destination);
-audio.Source = 0.1; // 音量を設定 
+
           audioSource.start();
       })
       .catch(error => {
@@ -236,12 +235,25 @@ audio.Source = 0.1; // 音量を設定
 
 
 
-// 🎚 音量調整（iOS でも動作）
+// 🎚 音量調整
 function setVolume(value) {
-if (gainNode) {
-   gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+  if (!gainNode) {
+      console.error("gainNode が未作成のため、音量を変更できません。");
+      return;
+  }
+  const volume = Math.min(1.0, Math.max(0.0, value)); // 0.0～1.0 に制限
+  gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
 }
-}
+
+// 🎮 iOS の `AudioContext` を自動で `resume()`
+document.body.addEventListener("click", () => {
+  if (audioContext && audioContext.state === "suspended") {
+      audioContext.resume().then(() => {
+          console.log("AudioContext resumed");
+      });
+  }
+});
+
 
 
 
@@ -598,7 +610,7 @@ function endGame() {
       level++;
       
       if (level > 6) {
-        audiosource.pause(); // 現在の曲を停止  
+        audioSource.stop();
         
         let finalComment = "";
 
@@ -623,7 +635,7 @@ function endGame() {
         return;
       }
 
-      audioSource.pause(); // 現在の曲を停止
+      audioSource.stop();
       const uplevelSound = new Audio("uplevel.mp3"); // 効果音のファイル名
       uplevelSound.play();
       clearInterval(timer);
