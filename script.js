@@ -57,12 +57,12 @@ let quizLevels = {
 
 // 各レベルの曲のリスト
 const musicTracks = [
-    "level1.mp3", // レベル 1
-    "level2.mp3", // レベル 2
-    "level3.mp3", // レベル 3
-    "level4.mp3", // レベル 4
-    "level5.mp3", // レベル 5
-    "level6.mp3"  // レベル 6
+    "level_m1.mp3", // レベル 1
+    "level_m2.mp3", // レベル 2
+    "level_m3.mp3", // レベル 3
+    "level_m4.mp3", // レベル 4
+    "level_m5.mp3", // レベル 5
+    "level_m6.mp3"  // レベル 6
 ];
 const volumeLevels = [
     1.0, // レベル 1 の音量（最大）
