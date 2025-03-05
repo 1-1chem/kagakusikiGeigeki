@@ -1,0 +1,312 @@
+/* styles.css */
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: -apple-system, "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+.screen { 
+  display: none; text-align: center; margin-top: 0px; 
+  margin: 0; overflow: hidden;  height: 100vh;
+}
+.active { display: block; }
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 100%; /* 🔴 iPhone でもはみ出さない */
+  height: 100%;
+}
+.text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;     font-weight: bold;    color: #333;
+}
+
+/* 🔴🔴🔴🔴 落下文字🔴🔴🔴 */
+.text-fall {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);/*ココを100にすれば全画面*/
+    font-size: 24px;   font-weight: bold;  color: #333;
+    top: 10%;    }
+
+/* 🔴🔴🔴🔴 発射文字🔴🔴🔴 */
+.text-rise {
+    font-size: 48px;   font-weight: bold;  color: #333;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 45%; /* 🔴 初期位置を設定 */
+}
+
+/* 🔴🔴🔴🔴上付き下付きのサイズの調整🔴🔴🔴 */
+.text-rise sup { font-size: 36px; }
+.text-rise sub { font-size: 36px;  }
+
+.fragment {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold; color: #333;
+    opacity: 0;
+    animation: scatter 1s forwards;
+}
+
+/* 🔴🔴🔴🔴時間切れメッセージ🔴🔴🔴 */
+.timeout-message {
+    font-size: 24px;   font-weight: bold;        color: #fe0101;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 15%; /*  初期位置を設定 */
+    display: none;
+}
+
+#inputContainer {
+  position: absolute;
+  top: 55%;
+  right: 43%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  display: none; /* 最初は非表示 */
+}
+
+/* 🔴🔴🔴🔴 入力欄🔴🔴🔴 */
+#inputText {
+  right: 45%;
+  width: 100px; /*  最小幅を設定 */
+  font-size: 8px; /* 文字サイズを適切に */
+  padding: 4px 8px; /* 内側の余白を小さくする */
+  margin-bottom: 10px;
+}
+
+/* 🔴🔴🔴🔴 発射ボタンと次問ボタン🔴🔴🔴 */
+#fireButton, #nextButton {
+position: absolute;
+    bottom:0%;
+    left: 175%;
+    padding: 10px 20px;
+    font-size: 20px;
+    width: 80px;
+}
+
+#fireButton {
+    background-color: #fd0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+/* 🔴🔴🔴🔴 次へのボタン🔴🔴🔴 */
+#nextButton {
+    background-color: #5374e1;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* 🔴 上付き・下付きボタンを縦並びにする */
+#sideButtonContainer {
+position: absolute;
+bottom:-75%;
+left: 100%;
+display: flex;
+width: 85px;
+display: flex;
+flex-direction: column; /* 🔴 ボタンを縦並びに */
+gap: 5px; /* 🔴 ボタン間の余白 */
+margin-right: 40px; /* 🔴 左に寄せるために、余白を増やす */
+}
+
+/* 🔴 ボタンのスタイル */
+#superscriptButton, #subscriptButton {
+padding: 8px 12px;
+font-size: 18px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+display: none;
+}
+
+/* 🔴 上付き，下付きボタンの色 */
+#superscriptButton {
+background-color: #ff9800; /* オレンジ色 */
+color: white;
+}
+#subscriptButton {
+background-color: #4CAF50; /* 緑色 */
+color: white;
+}
+
+/* 🔴🔴🔴🔴 スコア表示🔴🔴🔴 */
+#scoreDisplay {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 🔴🔴🔴🔴 残り時間表示🔴🔴🔴 */
+#timerDisplay {
+    position: absolute;
+    top: 7%;
+    right: 1%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #d9534f; /* 赤色 */
+}
+#lifeContainer {
+  position: absolute;
+  top: 15%; 
+  right: 1%;
+  text-align: center;
+}
+
+#lifeLabel {
+  font-size: 28px;      font-weight: bold;      color: black; 
+margin-bottom: -10px; /* "Life" と "♥♥♥" の間隔 */
+}
+
+/* 🔴🔴🔴🔴 LIFE表示🔴🔴🔴 */
+#lifeDisplay {
+font-size: 50px;  font-weight: bold;  color: red; /*  ハートを赤色 */
+}
+
+/* 🔴🔴🔴🔴 総合計スコア表示🔴🔴🔴 */
+#totalScoreDisplay {
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  font-size: 28px;      font-weight: bold;      color: blue;
+}
+#totalScoreDisplay2 {
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  font-size: 28px;      font-weight: bold;      color: blue;
+}
+#totalScoreDisplay3 {
+  position: absolute;
+  top: 30%;
+  left: 30%; 
+  font-size: 40px;      font-weight: bold;      color: blue;
+}
+
+/* 🔴🔴🔴🔴 フォーマット後の文字表示🔴🔴🔴 */
+.formatted-answer {
+
+  font-size: 48px; font-weight: bold;   color: #333;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 45%; /* 🔴 初期位置を設定←ココを10にすると全画面 */
+}
+.formatted-answer sup {font-size: 36px;}
+
+
+
+/* 🔴🔴🔴🔴 最終スコア表示🔴🔴🔴 */
+#finalScore {
+display: none;
+position: absolute;
+top: 50%; /* 「ゲーム終了」の下に配置 */
+left: 50%;
+transform: translate(-50%, -50%);
+font-size: 14px;
+font-weight: bold;
+color: black;
+text-align: center;
+}
+
+/* 🔴🔴🔴🔴 やりなおしボタン🔴🔴🔴 */
+#restartButton {
+display: none; /* 最初は非表示 */
+position: absolute;
+top: 80%;
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 15px 30px;
+font-size: 20px;
+background-color: #FF5733; /* オレンジ色 */
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 8px;
+}
+
+
+/* 🔴🔴🔴🔴 スタートボタン🔴🔴🔴 */
+#startButton {
+padding: 10px 20px;
+font-size: 18px;
+background-color: #4CAF50;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+margin-top: 10px;
+left: 46%;
+position: relative; /* または absolute */
+z-index: 1001;
+pointer-events: auto; /* クリックを許可 */
+}
+
+/* 🔴🔴🔴🔴 次のレベルボタン🔴🔴🔴 */
+#nextlevelButton {
+display: none; /* 最初は非表示 */
+position: absolute;
+top: 80%;
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 15px 30px;
+font-size: 20px;
+background-color: #08f704bd; /* 緑色 */
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 8px;
+}
+
+/* 🔴🔴🔴🔴 説明の次へボタン🔴🔴🔴 */
+#setumeiButton {
+padding: 10px 20px;
+font-size: 18px;
+background-color: #4CAF50;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+margin-top: 10px;
+position: relative; /* または absolute */
+z-index: 1001;
+pointer-events: auto; /* クリックを許可 */
+}
+
+#finalComment {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  font-size: 40px;      font-weight: bold;      color: rgb(255, 0, 0);
+}
+
+
+@keyframes rise {
+  0% {bottom: 0;}
+  100% {bottom: 100vh;}
+}
+
+@keyframes scatter {
+  0% {opacity: 1;transform: translate(0, 0);
+  }
+  100% {opacity: 0;transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px));
+  }
+}
