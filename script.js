@@ -239,7 +239,7 @@ audio.Source = 0.1; // 音量を設定
 // 🎚 音量調整（iOS でも動作）
 function setVolume(value) {
 if (gainNode) {
-   gainNode.gain.setValueAtTime(value, audioContext.currentTime);
+   gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
 }
 }
 
@@ -598,7 +598,7 @@ function endGame() {
       level++;
       
       if (level > 6) {
-        audio.pause(); // 現在の曲を停止  
+        audiosource.pause(); // 現在の曲を停止  
         
         let finalComment = "";
 
@@ -623,7 +623,7 @@ function endGame() {
         return;
       }
 
-      audio.pause(); // 現在の曲を停止
+      audioSource.pause(); // 現在の曲を停止
       const uplevelSound = new Audio("uplevel.mp3"); // 効果音のファイル名
       uplevelSound.play();
       clearInterval(timer);
