@@ -178,6 +178,7 @@ function showScreen(id) {//表示したい画面のidを渡す
             fireButton.style.display = "block"; //発射ボタンを表示
             quizuLevel(level)//クイズレベルの処理
             setVolume(0.1);
+            
             playMusicForLevel(currentLevel);
             
 
@@ -225,7 +226,7 @@ function playMusicForLevel(level) {
 
           audioSource.connect(gainNode);
           gainNode.connect(audioContext.destination);
-
+audio.Source = 0.1; // 音量を設定 
           audioSource.start();
       })
       .catch(error => {
